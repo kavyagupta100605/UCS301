@@ -28,7 +28,7 @@ vector<int> nearestelement(int arr[],int n){
 
 }
 int main(){
-    int arr[] = {4,5,2,10,8};
+    int arr[] = {3,4,10,5,12,6,2};
     int n =sizeof(arr)/sizeof(arr[0]);
     vector<int> arr1=nearestelement(arr,n);
     for(int i=0;i<5;i++)

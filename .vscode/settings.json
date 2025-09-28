@@ -2,6 +2,13 @@
     "files.associations": {
         "iostream": "cpp",
         "tuple": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "xstring": "cpp",
+        "algorithm": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xutility": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     }
 }

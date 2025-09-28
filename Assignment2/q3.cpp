@@ -2,7 +2,8 @@
 #include<stack>
 using namespace std;
 
-void bp()
+int main()
 {
-    
+        stack<int> st;
+        cout<<st.top();
 }
