@@ -1,37 +1,83 @@
-// 1. Develop a menu driven program for the following operations on a Singly Linked
-// List.
-// (a) Insertion at the beginning.
-// (b) Insertion at the end.
-// (c) Insertion in between (before or after a node having a specific value, say 'Insert a
-// new Node 35 before/after the Node 30').
-// (d) Deletion from the beginning.
-// (e) Deletion from the end.
-// (f) Deletion of a specific node, say 'Delete Node 60').
-// (g) Search for a node and display its position from head.
-// (h) Display all the node values.
-#include<iostream>
+#include <iostream>
 using namespace std;
-class LinkedList{
-    int data;
-    LinkedList* next;
-    public:
-    LinkedList(int data)
-    {
-        this->data=data;
-        next=nullptr;
-    }
-    LinkedList(){
-        data=0;
-        next=nullptr;
-    }
-    void add(int x,LinkedList head){
-        LinkedList temp;
-        temp.data=x;
 
+class queue{
+public:
+    int front;
+    int rear;
+    int len;
+    int* q;
+
+    queue(int size){
+        len = size;
+        q = new int[len];
+        front = -1;
+        rear = -1;
+    }
+
+    bool isempty(){
+        return (front == -1 && rear == -1);
+    }
+
+    bool isfull(){
+        return (rear == len - 1);
+    }
+
+    void enqueue(int val){
+        if(isfull()){
+            cout << "Q is full" << endl;
+        }
+        else{
+            if(isempty()){
+                front = 0;
+            }
+            rear++;
+            q[rear] = val;
+        }
+    }
+
+    void dequeue(){
+        if(isempty()){
+            cout << "Q is empty" << endl;
+        }
+        else if(front == rear){
+            front = rear = -1;
+        }
+        else{
+            front++;
+        }
+    }
+
+    void display(){
+        for(int i = front; i <= rear; i++){
+            cout << q[i] << "  ";
+        }
+        cout << endl;
+    }
+
+    ~queue(){
+        delete[] q;
     }
 };
-int main()
-{
-    LinkedList head(1);
-    head.add(9);
+
+int main(){
+    queue q1(10);
+    q1.enqueue(1);
+    q1.enqueue(2);
+    q1.enqueue(3);
+    q1.enqueue(4);
+    q1.enqueue(5);
+    q1.enqueue(6);
+    q1.enqueue(7);
+    q1.enqueue(8);
+    q1.enqueue(9);
+    q1.display();
+
+    q1.dequeue();
+    q1.dequeue();
+    q1.dequeue();
+    q1.dequeue();
+    q1.display();
+
+    return 0;
 }

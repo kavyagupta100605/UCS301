@@ -1,74 +1,92 @@
-//chat gpt way
-// Initialize a counter count = 0.
-
-// Remove key nodes from the head: while the head exists and head->data == key, delete the node, move head forward, and increment count.
-
-// Traverse the list with a pointer current. For each step, check current->next.
-
-// If current->next->data == key, unlink and delete it, and increment count; otherwise, move current forward.
-
-// Return the updated head and the total count. 
-
-//my way
-#include<iostream>
+#include <iostream>
 using namespace std;
-class Node {
-public:
-    int data;
-    Node* next;
 
-    Node(int new_data) {
-        data = new_data;
-        next = nullptr;
+class queue{
+public:
+    int front;
+    int rear;
+    int len;
+    int* q;
+
+    queue(int size){
+        len = size;
+        q = new int[len];
+        front = -1;
+        rear = -1;
+    }
+
+    bool isempty(){
+        return (front == -1 && rear == -1);
+    }
+
+    bool isfull(){
+        return (front == (rear + 1) % len);
+    }
+
+    void enqueue(int val){
+        if(isfull()){
+            cout << "Q is full" << endl;
+        }
+        else{
+            if(isempty()){
+                front = 0;
+            }
+            rear = (rear + 1) % len;
+            q[rear] = val;
+        }
+    }
+
+    void dequeue(){
+        if(isempty()){
+            cout << "Q is empty" << endl;
+        }
+        else if(front == rear){
+            front = rear = -1;
+        }
+        else{
+            front = (front + 1) % len;
+        }
+    }
+
+    void display(){
+        int i = front;
+        while(1){
+            cout << q[i] << "  ";
+            if(i == rear) break;
+            i = (i + 1) % len;
+        }
+        cout << endl;
+    }
+
+    ~queue(){
+        delete[] q;
     }
 };
-Node* delete1(Node *head,int key,int &count){
-    int diff=0;
-    Node *temp=head;
-    Node *prev=head;
-    while(temp!=nullptr)
-    {
-        if(temp->data!=key)
-        {
-            diff++;
-            prev=temp;
-            if(diff==1)
-            {
-                head=prev;
-            }
-        }
-        else
-        {
-            prev->next=temp->next;
-            count++;
-        }
-        temp=temp->next;
-    }
-    prev->next=nullptr;
-    return head;
-}
-void display(Node* head)
-{
-    Node* temp=head;
-    while(temp!=nullptr)
-    {
-        cout<<temp->data<<" ";
-        temp=temp->next;
-    }
-}
 
-int main() {
+int main(){
+    queue q1(10);
+    q1.enqueue(1);
+    q1.enqueue(2);
+    q1.enqueue(3);
+    q1.enqueue(4);
+    q1.enqueue(5);
+    q1.enqueue(6);
+    q1.enqueue(7);
+    q1.enqueue(8);
+    q1.enqueue(9);
+    q1.display();
 
-    // Create a hard-coded linked list:
-    // 2 -> 2 -> 1 -> 8 -> 2 -> NULL
-    Node* head = new Node(1);
-    head->next = new Node(1);
-    head->next->next = new Node(2);
-    head->next->next->next = new Node(3);
-    
-    int key =1;
-    int count=0;
-    head=delete1(head,key,count);
-    cout<<"C="<<count<<endl;
-    display(head);
+    q1.dequeue();
+    q1.dequeue();
+    q1.dequeue();
+    q1.dequeue();
+    q1.display();
+
+    q1.enqueue(5);
+    q1.enqueue(6);
+    q1.enqueue(7);
+    q1.enqueue(8);
+    q1.display();
+
+    return 0;
 }
